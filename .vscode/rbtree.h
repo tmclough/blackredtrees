@@ -1,10 +1,10 @@
 /*******************************************************************************
  * Name        : rbtree.h
- * Author      :  
+ * Author      :Tara McLoughlin, Riki Saito
  * Version     : 1.0
  * Date        : 
  * Description : Implementation of red-black tree.
- * Pledge      :
+ * Pledge      :I pledge my honor that I have abided by the Stevens Honors System.
  ******************************************************************************/
 #ifndef RBTREE_H_
 #define RBTREE_H_
@@ -458,6 +458,14 @@ private:
      */
     size_t internal_node_count(Node<K, V> *node) const {
         // TODO
+           size_t count = 0;
+        while(node!=null){
+            if (node.left =!null || node.right=!null){
+                count+=1
+            }
+        }return count;
+    }
+
     }
 
     /**
@@ -465,6 +473,10 @@ private:
      */
     int diameter(Node<K, V> *node) const {
         // TODO
+        if (node == null){
+            return 0;
+        }
+        return 1+ max(height(node->left), height(node->right));
     }
 
     /**
@@ -473,6 +485,15 @@ private:
      */
     size_t width(Node<K, V> *node, size_t level) const {
         // TODO
+       if(node == null){
+           return 0;
+       }
+       if(level == 1){
+           return 1;
+       }
+       else{
+           return width(node->left, level-1) + width(node->right, level-1)
+       }
     }
 
     size_t null_count() const {
