@@ -492,7 +492,7 @@ private:
            return 1;
        }
        else{
-           return width(node->left, level-1) + width(node->right, level-1)
+           return width(node->left, level-1) + width(node->right, level-1);
        }
     }
 
