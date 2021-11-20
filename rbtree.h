@@ -500,27 +500,28 @@ private:
      * Right-rotate method described on p. 313 of CLRS.
      */
     void right_rotate(Node<K, V> *x) {
-     Node<K,V> *y;
-        // TODO
-     x = y->left;            // Definition of y.
-    y->left = x->right;       // Turn y's left subtree β into x's right subtree.
-    if (x->right != nullptr){     // If β is not empty then
-        x->right->parent = y;  
+      // TODO
+    Node<K,V> *y;
+     
+    y = x->left     ;       // Definition of y.
+    x->left = y->right  ;     // Turn y's left subtree β into x's right subtree.
+    if (y->right != nullptr){     // If β is not empty then
+        y->right->parent = x;
     }     
-    x->parent = y->parent;              // The parent of x is now also the parent of y.
-    if (y->parent == nullptr){         // If x is the root of the tree then
-        root_ = x; 
+    y->parent = x->parent;              // The parent of x is now also the parent of y.
+    if (x->parent == nullptr){         // If x is the root of the tree then
+        root_ = y  ;
     }      
-    else if (x == x->parent->left){  // If x is the left subtree of its parent then
-        y->parent->right = x ;
+    else if (x == x->parent->right){  // If x is the left subtree of its parent then
+        x->parent->right = y;
     }      
     else{
-     y->parent->left = x ;    
+     x->parent->right = y;   
     }
-    x->right = y   ;          // Put x on y’s left.
-    y->parent = x  ;              // y is now the parent of x.
+    y->right = x;         // Put x on y’s left.
+    x->parent = y;              // y is now the parent of x.
     }
-    
+
 
     /**
      * Returns the height of the red-black tree starting at node.
