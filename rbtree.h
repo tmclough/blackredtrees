@@ -221,7 +221,7 @@ public:
         }
         while(x!=nullptr){
             y=x;
-            if (z->key < x->key){
+            if (z->key() < x->key()){
                 x=x->left;
             }
             else{
@@ -233,7 +233,7 @@ public:
         if(y==nullptr){
             root_ = z;
         }
-        else if(z->key < y->key){
+        else if(z->key() < y->key()){
             y->left =z;
         }
         else{
@@ -568,7 +568,7 @@ private:
         if(node == null){
             return 0;
         }
-        return std: max((1 + diameter(node->left) + diameter(node->right)), std:max(height(node->left), height(node->right));
+        return max((1 + diameter(node->left) + diameter(node->right)), max(height(node->left), height(node->right));
     }
 
     /**
