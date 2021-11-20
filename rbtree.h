@@ -19,6 +19,7 @@
 #include <sstream>
 #include <algorithm>
 #include <utility>
+using namespace std
 
 // Forward declaration
 template <typename K, typename V>
@@ -214,10 +215,33 @@ public:
             x = it.node_ptr;
             y = x->parent;
         } else {
-            x = root_;
+            x = root_; 
             y = nullptr;
         }
-        // TODO
+        while(x!=nullptr){
+            y=x;
+            if (z->key < x->key){
+                x=x->left;
+            }
+            else{
+                x = x->right;
+            }
+
+        }
+        z->parent = y;
+        if(y=== nullptr){
+            root_ = z;
+        }
+        else if(z->key < y->key){
+            y->left =z;
+        }
+        else{
+            y->right = z;
+        }
+        z->left = nullptr;
+        z->right = nullptr;
+        z->color = RED; 
+        insert_fix(z);
     }
 
     /**
@@ -271,7 +295,7 @@ public:
      * pass through the root.
      */
     size_t diameter() const {
-        // TODO
+        return diamter(root_);
     }
 
     /**
@@ -371,6 +395,72 @@ private:
      */
     void insert_fixup(Node<K, V> *z) {
         // TODO
+         Node<K,V> *y;
+        while{
+            if (z->parent==NULL || z->parent->parent==NULL){
+                return;
+            }
+
+            if (z->p == z->parent->parent->left){
+
+                y =z->parent->parent->right;
+                if(y ==NULL){
+                    if(z == z->parent->right){
+                        z=z->parent;
+                        left_rotate(z);
+                    }
+                    z->parent->color = BLACK;
+                    z->parent->parent->color = RED;
+                    right_rotate(z);
+                }
+                else if(y->color = RED){
+                    z->parent->color = BLACK;
+                    y->color = BLACK;
+                    z->parent->parent->color = RED;
+                    z = z->parent->parent;
+
+                }else{
+                    if(z == z->parent->right){
+                        z=z->parent;
+                        left_rotate(z);
+                    }
+                    z->parent->color = BLACK;
+                    z->parent->parent->color = RED;
+                    right_rotate(z);
+                }
+            }
+            else{
+               
+                 y =z->parent->parent->left;
+                if(y ==NULL){
+                    if(z == z->parent->left){
+                        z=z->parent;
+                        right_rotate(z);
+                    }
+                    z->parent->color = BLACK;
+                    z->parent->parent->color = RED;
+                    left_rotate(z);
+                }
+                else if(y->color = RED){
+                    z->parent->color = BLACK;
+                    y->color = BLACK;
+                    z->parent->parent->color = RED;
+                    z = z->parent->parent;
+
+                }else{
+                    if(z == z->parent->left){
+                        z=z->parent;
+                        right_rotate(z);
+                    }
+                    z->parent->color = BLACK;
+                    z->parent->parent->color = RED;
+                    left_rotate(z);
+                }
+
+            }
+            
+
+        }
 
         // Last line below
         root_->color = BLACK;
@@ -381,6 +471,24 @@ private:
      */
     void left_rotate(Node<K, V> *x) {
         // TODO
+     
+    y = x->right     ;       // Definition of y.
+    x->right = y->left  ;     // Turn y's left subtree β into x's right subtree.
+    if (y->left != null){     // If β is not empty then
+        y->left->parent = x  ;
+    }     
+    y->parent = x->parent              // The parent of x is now also the parent of y.
+    if (x->parent == null){         // If x is the root of the tree then
+        root_ = y  ;
+    }      
+    else if (x == x->parent->left){  // If x is the left subtree of its parent then
+        x->parent->left = y ;
+    }      
+    else{
+     x->parent->right = y  ;   
+    }
+    y->left = x    ;         // Put x on y’s left.
+    x->parent = y  ;              // y is now the parent of x.
     }
 
     /**
@@ -388,6 +496,24 @@ private:
      */
     void right_rotate(Node<K, V> *x) {
         // TODO
+        x = y->left;            // Definition of y.
+    y->left = x->right;       // Turn y's left subtree β into x's right subtree.
+    if (x->right != null){     // If β is not empty then
+        x->right->parent = y;  
+    }     
+    x->parent = y->parent              // The parent of x is now also the parent of y.
+    if (y->parent == null){         // If x is the root of the tree then
+        root_ = x; 
+    }      
+    else if (x == x->parent->left){  // If x is the left subtree of its parent then
+        y->parent->right = x ;
+    }      
+    else{
+     y->parent->left = x ;    
+    }
+    x->right = y   ;          // Put x on y’s left.
+    y->parent = x  ;              // y is now the parent of x.
+    }
     }
 
     /**
@@ -407,7 +533,14 @@ private:
      */
     size_t leaf_count(Node<K, V> *node) const {
         size_t count = 0;
-        while(node != null)
+        if (node == NULL){
+            return 0;
+        }
+        if(node->right ==NULL && node->left ==NULL){
+             return 1;
+        }
+        return leaf_count(node->left) + leaf_count(node->right);
+
     }
 
     /**
@@ -416,13 +549,15 @@ private:
      * An internal node has at least one child.
      */
     size_t internal_node_count(Node<K, V> *node) const {
-        size_t count = 0;
-        while(node != null){
-            if(node.left != null || node.right != null){
-                count++;
-            }
+        if (node == NULL){
+            return 0;
         }
-        return count;
+        if(node->right ==NULL && node->left ==NULL){
+             return internal_node_count(node->left) + internal_node_count(node->right);
+        }
+        return 1 + internal_node_count(node->left) + internal_node_count(node->right);
+
+    }
     }
 
     /**
@@ -432,7 +567,7 @@ private:
         if(node == null){
             return 0;
         }
-        return max((1 + diameter(node->left) + diameter(node->right)), max(height(node->left), height(node->right));
+        return std: max((1 + diameter(node->left) + diameter(node->right)), std:max(height(node->left), height(node->right));
     }
 
     /**
@@ -490,7 +625,8 @@ private:
         int h = height(node);
         size_t out = 0;
         for(int i = 0; i < h; i++){
-            size_t = level * width(node, i);
+            out = level * width(node, i);
+            level++;
         }
         return out;
     }
@@ -513,6 +649,17 @@ private:
      * has sum 3(2) + 2(3) = 12.
      */
     size_t sum_null_levels(Node<K, V> *node, size_t level) const {
+        
+        if(node ==NULL){
+            return level;
+
+        }
+        else{
+            return sum_null_levels(node->left, level++) + sum_null_levels(node->right, level++);
+          
+        }
+
+
         // TODO
     }
 };

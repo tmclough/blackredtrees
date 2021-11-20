@@ -383,7 +383,7 @@ private:
         y.parent =x.parent;
         if (x.parent==null ){
     
-            root_.root = y;
+            root_ = y;
         }
         else if(x == x.parent.left){
              x.parent.left =y;
@@ -409,7 +409,7 @@ private:
         y.parent =x.parent;
         if (y.parent==null ){
             //T.root = y
-            root_.root = x;
+            root_ = x;
         }
         else if(y == y.parent.right){
              y.parent.right =x;
@@ -463,6 +463,7 @@ private:
             if (node.left =!null || node.right=!null){
                 count+=1
             }
+            
         }return count;
     }
 
@@ -505,6 +506,8 @@ private:
      */
     size_t null_count(Node<K, V> *node) const {
         // TODO
+
+       
     }
 
     size_t sum_levels() const {
