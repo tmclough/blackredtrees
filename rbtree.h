@@ -207,6 +207,9 @@ public:
      * insert the node. If it == end(), the search starts at the root.
      * Must throw a tree_exception if attempting to insert a key that is
      * already present in the tree.
+     * 
+     * 
+     * Tara
      */
     void insert(const iterator &it, const std::pair<K, V> &key_value) {        
         const K& key = key_value.first;
@@ -396,6 +399,8 @@ private:
 
     /**
      * Fixup method described on p. 316 of CLRS.
+     * 
+     * Tara 
      */
     void insert_fixup(Node<K, V> *z) {
         // TODO
@@ -472,6 +477,7 @@ private:
 
     /**
      * Left-rotate method described on p. 313 of CLRS.
+     * Tara
      */
     void left_rotate(Node<K, V> *x) {
         // TODO
@@ -498,6 +504,7 @@ private:
 
     /**
      * Right-rotate method described on p. 313 of CLRS.
+     * Tara
      */
     void right_rotate(Node<K, V> *x) {
       // TODO
@@ -526,6 +533,7 @@ private:
     /**
      * Returns the height of the red-black tree starting at node.
      * A null node starts at height -1.
+     * 
      */
     int height(Node<K, V> *node) const {
         if(node == nullptr){
@@ -554,6 +562,7 @@ private:
      * Returns the count of internal nodes in the red-black tree starting at
      * node.
      * An internal node has at least one child.
+     * Tara
      */
     size_t internal_node_count(Node<K, V> *node) const {
         if (node == nullptr){
@@ -580,6 +589,7 @@ private:
     /**
      * Returns the width of the red-black tree at the designated level.
      * Width is defined as the number of nodes residing at a level.
+     * 
      */
     size_t width(Node<K, V> *node, size_t level) const {
         if(node == nullptr){
@@ -601,16 +611,17 @@ private:
      * Returns the count of null nodes in the red-black tree starting at node.
      */
     size_t null_count(Node<K, V> *node) const {
-        if(node->left == nullptr && node->right == nullptr){
+        size_t count;
+        if(node->left == nullptr){
+            count += 1;
+        }
+        if(node->right == nullptr){
+            count += 1;
+        }
+        if(node->right == nullptr && node->left == nullptr){
             return 2;
         }
-        else if(node->left == nullptr){
-            return 1;
-        }
-        else if(node->right == nullptr){
-            return 1;
-        }
-        return null_count(node->left) + null_count(node->right);
+        return null_count(node->left) + null_count(node->right) + count;
     }
 
     size_t sum_levels() const {
