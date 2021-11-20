@@ -208,9 +208,10 @@ public:
      * Must throw a tree_exception if attempting to insert a key that is
      * already present in the tree.
      */
-    void insert(const iterator &it, const std::pair<K, V> &key_value) {
+    void insert(const iterator &it, const std::pair<K, V> &key_value) {        
         const K& key = key_value.first;
         Node<K, V> *x, *y;
+        //figure out how to satisfy generics 
         Node<K, V> *z = new Node(K key, V key_value.second);
         if (it != end()) {
             x = it.node_ptr;
@@ -242,7 +243,7 @@ public:
         z->left = nullptr;
         z->right = nullptr;
         z->color = RED; 
-        insert_fix(z);
+        insert_fixup(z);
     }
 
     /**
@@ -296,7 +297,7 @@ public:
      * pass through the root.
      */
     size_t diameter() const {
-        return diamter(root_);
+        return diameter(root_);
     }
 
     /**
@@ -477,20 +478,20 @@ private:
     y = x->right     ;       // Definition of y.
     x->right = y->left  ;     // Turn y's left subtree β into x's right subtree.
     if (y->left != nullptr){     // If β is not empty then
-        y->left->parent = x  ;
+        y->left->parent = x;
     }     
-    y->parent = x->parent              // The parent of x is now also the parent of y.
+    y->parent = x->parent;              // The parent of x is now also the parent of y.
     if (x->parent == nullptr){         // If x is the root of the tree then
         root_ = y  ;
     }      
     else if (x == x->parent->left){  // If x is the left subtree of its parent then
-        x->parent->left = y ;
+        x->parent->left = y;
     }      
     else{
-     x->parent->right = y  ;   
+     x->parent->right = y;   
     }
-    y->left = x    ;         // Put x on y’s left.
-    x->parent = y  ;              // y is now the parent of x.
+    y->left = x;         // Put x on y’s left.
+    x->parent = y;              // y is now the parent of x.
     }
 
     /**
@@ -504,7 +505,7 @@ private:
     if (x->right != nullptr){     // If β is not empty then
         x->right->parent = y;  
     }     
-    x->parent = y->parent              // The parent of x is now also the parent of y.
+    x->parent = y->parent;              // The parent of x is now also the parent of y.
     if (y->parent == nullptr){         // If x is the root of the tree then
         root_ = x; 
     }      
@@ -535,7 +536,7 @@ private:
      * For this method, a leaf is a non-null node that has no children.
      */
     size_t leaf_count(Node<K, V> *node) const {
-        size_t count = 0;
+      //  size_t count = 0;
         if (node == nullptr){
             return 0;
         }
@@ -570,7 +571,7 @@ private:
         if(node == nullptr){
             return 0;
         }
-        return max((1 + diameter(node->left) + diameter(node->right)), max(height(node->left), height(node->right));
+        return max((1 + diameter(node->left) + diameter(node->right)), max(height(node->left), height(node->right)));
     }
 
     /**
@@ -658,7 +659,7 @@ private:
 
         }
         else{
-            return sum_null_levels(node->left, level++) + sum_null_levels(node->right, level++);
+            return sum_null_levels(node->left, level+1) + sum_null_levels(node->right, level+1);
           
         }
 
