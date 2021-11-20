@@ -611,17 +611,16 @@ private:
      * Returns the count of null nodes in the red-black tree starting at node.
      */
     size_t null_count(Node<K, V> *node) const {
-        size_t count;
-        if(node->left == nullptr){
-            count += 1;
-        }
-        if(node->right == nullptr){
-            count += 1;
-        }
         if(node->right == nullptr && node->left == nullptr){
             return 2;
         }
-        return null_count(node->left) + null_count(node->right) + count;
+        if(node->left == nullptr){
+            return null_count(node->right) + 1;
+        }
+        if(node->right == nullptr){
+            return null_count(node->left) + 1;
+        }
+        return null_count(node->left) + null_count(node->right);
     }
 
     size_t sum_levels() const {
