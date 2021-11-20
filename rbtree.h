@@ -214,7 +214,7 @@ public:
         
         Node<K, V> *x, *y;
         //figure out how to satisfy generics 
-        Node<K, V> *z (key,value);
+        Node<K, V> *z = new Node<K, V>(key,value);
         if (it != end()) {
             x = it.node_ptr;
             y = x->parent;
