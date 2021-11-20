@@ -415,7 +415,7 @@ private:
                     z->parent->parent->color = RED;
                     right_rotate(z);
                 }
-                else if(y->color = RED){
+                else if(y->color == RED){
                     z->parent->color = BLACK;
                     y->color = BLACK;
                     z->parent->parent->color = RED;
@@ -443,7 +443,7 @@ private:
                     z->parent->parent->color = RED;
                     left_rotate(z);
                 }
-                else if(y->color = RED){
+                else if(y->color == RED){
                     z->parent->color = BLACK;
                     y->color = BLACK;
                     z->parent->parent->color = RED;
