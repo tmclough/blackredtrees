@@ -211,9 +211,10 @@ public:
     void insert(const iterator &it, const std::pair<K, V> &key_value) {        
         const K& key = key_value.first;
         const V& value = key_value.second;
+        
         Node<K, V> *x, *y;
         //figure out how to satisfy generics 
-        Node<K, V> *z = new Node(key, value);
+        Node<K, V> *z (key,value);
         if (it != end()) {
             x = it.node_ptr;
             y = x->parent;
