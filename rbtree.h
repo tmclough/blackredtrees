@@ -19,7 +19,7 @@
 #include <sstream>
 #include <algorithm>
 #include <utility>
-using namespace std
+using namespace std;
 
 // Forward declaration
 template <typename K, typename V>
@@ -383,7 +383,7 @@ private:
      * Deletes all nodes from the red-black tree.
      */
     void delete_tree(Node<K, V> *n) {
-        if(n == null)
+        if(n == nullptr)
             return;
 
         delete_tree(n->left);
@@ -397,15 +397,15 @@ private:
     void insert_fixup(Node<K, V> *z) {
         // TODO
          Node<K,V> *y;
-        while{
-            if (z->parent==NULL || z->parent->parent==NULL){
+        while(z->parent->color== RED){
+            if (z->parent==nullptr || z->parent->parent==nullptr){
                 return;
             }
 
             if (z->parent == z->parent->parent->left){
 
                 y =z->parent->parent->right;
-                if(y ==NULL){
+                if(y ==nullptr){
                     if(z == z->parent->right){
                         z=z->parent;
                         left_rotate(z);
@@ -433,7 +433,7 @@ private:
             else{
                
                  y =z->parent->parent->left;
-                if(y ==NULL){
+                if(y ==nullptr){
                     if(z == z->parent->left){
                         z=z->parent;
                         right_rotate(z);
@@ -475,11 +475,11 @@ private:
      
     y = x->right     ;       // Definition of y.
     x->right = y->left  ;     // Turn y's left subtree β into x's right subtree.
-    if (y->left != null){     // If β is not empty then
+    if (y->left != nullptr){     // If β is not empty then
         y->left->parent = x  ;
     }     
     y->parent = x->parent              // The parent of x is now also the parent of y.
-    if (x->parent == null){         // If x is the root of the tree then
+    if (x->parent == nullptr){         // If x is the root of the tree then
         root_ = y  ;
     }      
     else if (x == x->parent->left){  // If x is the left subtree of its parent then
@@ -499,11 +499,11 @@ private:
         // TODO
      x = y->left;            // Definition of y.
     y->left = x->right;       // Turn y's left subtree β into x's right subtree.
-    if (x->right != null){     // If β is not empty then
+    if (x->right != nullptr){     // If β is not empty then
         x->right->parent = y;  
     }     
     x->parent = y->parent              // The parent of x is now also the parent of y.
-    if (y->parent == null){         // If x is the root of the tree then
+    if (y->parent == nullptr){         // If x is the root of the tree then
         root_ = x; 
     }      
     else if (x == x->parent->left){  // If x is the left subtree of its parent then
@@ -515,14 +515,14 @@ private:
     x->right = y   ;          // Put x on y’s left.
     y->parent = x  ;              // y is now the parent of x.
     }
-    }
+    
 
     /**
      * Returns the height of the red-black tree starting at node.
      * A null node starts at height -1.
      */
     int height(Node<K, V> *node) const {
-        if(node == null){
+        if(node == nullptr){
             return -1;
         }
         return max(height(node->left), height(node->right)) + 1;
@@ -534,10 +534,10 @@ private:
      */
     size_t leaf_count(Node<K, V> *node) const {
         size_t count = 0;
-        if (node == NULL){
+        if (node == nullptr){
             return 0;
         }
-        if(node->right ==NULL && node->left ==NULL){
+        if(node->right ==nullptr && node->left ==nullptr){
              return 1;
         }
         return leaf_count(node->left) + leaf_count(node->right);
@@ -550,10 +550,10 @@ private:
      * An internal node has at least one child.
      */
     size_t internal_node_count(Node<K, V> *node) const {
-        if (node == NULL){
+        if (node == nullptr){
             return 0;
         }
-        if(node->right ==NULL && node->left ==NULL){
+        if(node->right ==nullptr && node->left ==nullptr){
              return internal_node_count(node->left) + internal_node_count(node->right);
         }
         return 1 + internal_node_count(node->left) + internal_node_count(node->right);
@@ -565,7 +565,7 @@ private:
      * Helper method to assist in the computation of tree diameter.
      */
     int diameter(Node<K, V> *node) const {
-        if(node == null){
+        if(node == nullptr){
             return 0;
         }
         return max((1 + diameter(node->left) + diameter(node->right)), max(height(node->left), height(node->right));
@@ -576,7 +576,7 @@ private:
      * Width is defined as the number of nodes residing at a level.
      */
     size_t width(Node<K, V> *node, size_t level) const {
-        if(node == null){
+        if(node == nullptr){
             return 0;
         }
         if(level == 0){
@@ -595,13 +595,13 @@ private:
      * Returns the count of null nodes in the red-black tree starting at node.
      */
     size_t null_count(Node<K, V> *node) const {
-        if(node->left == null && node->right == null){
+        if(node->left == nullptr && node->right == nullptr){
             return 2;
         }
-        else if(node->left == null){
+        else if(node->left == nullptr){
             return 1;
         }
-        else if(node->right == null){
+        else if(node->right == nullptr){
             return 1;
         }
         return null_count(node->left) + null_count(node->right);
@@ -651,7 +651,7 @@ private:
      */
     size_t sum_null_levels(Node<K, V> *node, size_t level) const {
         
-        if(node ==NULL){
+        if(node ==nullptr){
             return level;
 
         }
