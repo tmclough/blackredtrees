@@ -211,6 +211,7 @@ public:
     void insert(const iterator &it, const std::pair<K, V> &key_value) {
         const K& key = key_value.first;
         Node<K, V> *x, *y;
+        Node<K, V> *z = new Node(key_value.first, key_value.second);
         if (it != end()) {
             x = it.node_ptr;
             y = x->parent;
@@ -229,7 +230,7 @@ public:
 
         }
         z->parent = y;
-        if(y=== nullptr){
+        if(y==nullptr){
             root_ = z;
         }
         else if(z->key < y->key){
@@ -401,7 +402,7 @@ private:
                 return;
             }
 
-            if (z->p == z->parent->parent->left){
+            if (z->parent == z->parent->parent->left){
 
                 y =z->parent->parent->right;
                 if(y ==NULL){
@@ -496,7 +497,7 @@ private:
      */
     void right_rotate(Node<K, V> *x) {
         // TODO
-        x = y->left;            // Definition of y.
+     x = y->left;            // Definition of y.
     y->left = x->right;       // Turn y's left subtree β into x's right subtree.
     if (x->right != null){     // If β is not empty then
         x->right->parent = y;  
