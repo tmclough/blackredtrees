@@ -211,7 +211,7 @@ public:
     void insert(const iterator &it, const std::pair<K, V> &key_value) {
         const K& key = key_value.first;
         Node<K, V> *x, *y;
-        Node<K, V> *z = new Node(key_value.first, key_value.second);
+        Node<K, V> *z = new Node(K key, V key_value.second);
         if (it != end()) {
             x = it.node_ptr;
             y = x->parent;
@@ -404,7 +404,7 @@ private:
 
             if (z->parent == z->parent->parent->left){
 
-                y =z->parent->parent->right;
+                y = z->parent->parent->right;
                 if(y ==nullptr){
                     if(z == z->parent->right){
                         z=z->parent;
@@ -472,6 +472,7 @@ private:
      */
     void left_rotate(Node<K, V> *x) {
         // TODO
+    Node<K,V> *y;
      
     y = x->right     ;       // Definition of y.
     x->right = y->left  ;     // Turn y's left subtree β into x's right subtree.
@@ -496,6 +497,7 @@ private:
      * Right-rotate method described on p. 313 of CLRS.
      */
     void right_rotate(Node<K, V> *x) {
+     Node<K,V> *y;
         // TODO
      x = y->left;            // Definition of y.
     y->left = x->right;       // Turn y's left subtree β into x's right subtree.
@@ -559,7 +561,7 @@ private:
         return 1 + internal_node_count(node->left) + internal_node_count(node->right);
 
     }
-    }
+    
 
     /**
      * Helper method to assist in the computation of tree diameter.
