@@ -1,10 +1,10 @@
 /*******************************************************************************
  * Name        : rbtree.h
- * Author      : 
+ * Author      : Riki Saito, Tara Mcloughlin
  * Version     : 1.0
  * Date        : 
  * Description : Implementation of red-black tree.
- * Pledge      :
+ * Pledge      : I pledege my honor that I have abided by the Stevens Honor System
  ******************************************************************************/
 #ifndef RBTREE_H_
 #define RBTREE_H_
@@ -226,6 +226,7 @@ class RedBlackTree : public Tree {
 			while(x != nullptr){
 				y = x;
 				if(x->key() == key){
+					delete z;
 					stringstream s;
 					s << "Attempt to insert duplicate key '" << key << "'.";
 					throw tree_exception(s.str()); 
