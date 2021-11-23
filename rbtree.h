@@ -4,7 +4,7 @@
  * Version     : 1.0
  * Date        : 
  * Description : Implementation of red-black tree.
- * Pledge      : I pledege my honor that I have abided by the Stevens Honor System
+ * Pledge      : I pledge my honor that I have abided by the Stevens Honor System.
  ******************************************************************************/
 #ifndef RBTREE_H_
 #define RBTREE_H_
